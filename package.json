@@ -1,0 +1,18 @@
+{
+  "name": "event-driven-commerce-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Event driven microservices ecommerce platform",
+  "scripts": {
+    "dev": "pnpm --parallel --filter './services/*' dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0"
+  }
+}
