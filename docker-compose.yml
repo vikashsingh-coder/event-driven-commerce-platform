@@ -1,0 +1,271 @@
+services:
+
+  # -----------------------------
+  # PostgreSQL
+  # -----------------------------
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: ecommerce-postgres
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ecommerce
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - ecommerce-network
+
+
+  # -----------------------------
+  # MongoDB
+  # -----------------------------
+
+  mongodb:
+
+    image: mongo:8
+
+    container_name: ecommerce-mongodb
+
+    restart: always
+
+    environment:
+
+      MONGO_INITDB_ROOT_USERNAME: admin
+
+      MONGO_INITDB_ROOT_PASSWORD: admin
+
+
+    ports:
+
+      - "27017:27017"
+
+
+    volumes:
+
+      - mongodb_data:/data/db
+
+
+    networks:
+
+      - ecommerce-network
+
+
+
+  # -----------------------------
+  # Redis
+  # -----------------------------
+
+
+  redis:
+
+    image: redis:7-alpine
+
+    container_name: ecommerce-redis
+
+
+    restart: always
+
+
+    ports:
+
+      - "6379:6379"
+
+
+    volumes:
+
+      - redis_data:/data
+
+
+    command:
+
+      - redis-server
+      - --appendonly yes
+
+
+    networks:
+
+      - ecommerce-network
+
+
+
+  # -----------------------------
+  # RabbitMQ
+  # -----------------------------
+
+
+  rabbitmq:
+
+    image: rabbitmq:4-management
+
+
+    container_name: ecommerce-rabbitmq
+
+
+    restart: always
+
+
+    environment:
+
+      RABBITMQ_DEFAULT_USER: admin
+
+      RABBITMQ_DEFAULT_PASS: admin
+
+
+    ports:
+
+      - "5672:5672"
+
+      - "15672:15672"
+
+
+    volumes:
+
+      - rabbitmq_data:/var/lib/rabbitmq
+
+
+    networks:
+
+      - ecommerce-network
+
+
+
+  # -----------------------------
+  # Mailhog
+  # -----------------------------
+
+
+  mailhog:
+
+    image: mailhog/mailhog
+
+
+    container_name: ecommerce-mailhog
+
+
+    restart: always
+
+
+    ports:
+
+      - "1025:1025"
+
+      - "8025:8025"
+
+
+    networks:
+
+      - ecommerce-network
+
+
+
+  # -----------------------------
+  # Nginx Gateway
+  # -----------------------------
+
+
+  nginx:
+
+    image: nginx:alpine
+
+
+    container_name: ecommerce-nginx
+
+
+    restart: always
+
+
+    ports:
+
+      - "80:80"
+
+
+    volumes:
+
+      - ./infrastructure/nginx/nginx.conf:/etc/nginx/nginx.conf
+
+
+    depends_on:
+
+      - auth-service
+
+
+    networks:
+
+      - ecommerce-network
+
+
+
+  # -----------------------------
+  # Placeholder Services
+  # -----------------------------
+
+
+  auth-service:
+
+    image: node:22-alpine
+
+
+    container_name: ecommerce-auth-service
+
+
+    working_dir: /app
+
+
+    volumes:
+
+      - ./services/auth-service:/app
+
+
+    command:
+
+      - npm
+      - run
+      - dev
+
+
+    ports:
+
+      - "4001:4001"
+
+
+    networks:
+
+      - ecommerce-network
+
+
+
+# -----------------------------
+# Volumes
+# -----------------------------
+
+volumes:
+
+  postgres_data:
+
+  mongodb_data:
+
+  redis_data:
+
+  rabbitmq_data:
+
+
+
+# -----------------------------
+# Network
+# -----------------------------
+
+
+networks:
+
+  ecommerce-network:
+
+    driver: bridge

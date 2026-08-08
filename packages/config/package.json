@@ -1,0 +1,22 @@
+{
+  "name": "@ecommerce/config",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared configuration package for ecommerce microservices",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

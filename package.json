@@ -8,11 +8,16 @@
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "docker:start": "docker compose up -d",
+    "docker:stop": "docker compose down",
+    "docker:logs": "docker compose logs -f"
   },
   "devDependencies": {
-    "typescript": "^5.8.0",
+    "@types/node": "^26.1.2",
     "eslint": "^9.0.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "tsx": "^4.23.10",
+    "typescript": "^5.8.0"
   }
 }
