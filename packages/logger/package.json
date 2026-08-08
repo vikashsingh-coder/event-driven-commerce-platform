@@ -10,7 +10,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "test": "tsx test.ts",
+    "test:watch": "tsx watch src/test.ts"
   },
   "dependencies": {
     "pino": "^9.6.0",
@@ -18,6 +20,7 @@
     "@ecommerce/config": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "tsx": "^4.19.0"
   }
 }
