@@ -69,6 +69,25 @@ importers:
         specifier: ^5.8.0
         version: 5.9.3
 
+  packages/validation:
+    dependencies:
+      '@ecommerce/errors':
+        specifier: workspace:*
+        version: link:../errors
+      express:
+        specifier: ^5.1.0
+        version: 5.2.1(supports-color@7.2.0)
+      zod:
+        specifier: ^3.24.2
+        version: 3.25.76
+    devDependencies:
+      '@types/express':
+        specifier: ^5.0.3
+        version: 5.0.6
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+
   services/auth-service:
     dependencies:
       '@ecommerce/errors':

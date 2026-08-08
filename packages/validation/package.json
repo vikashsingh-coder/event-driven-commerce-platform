@@ -1,0 +1,24 @@
+{
+  "name": "@ecommerce/validation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared request validation package for ecommerce microservices",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@ecommerce/errors": "workspace:*",
+    "express": "^5.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "typescript": "^5.8.0"
+  }
+}
