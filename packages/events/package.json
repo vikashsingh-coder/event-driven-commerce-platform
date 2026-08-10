@@ -1,0 +1,24 @@
+{
+  "name": "@ecommerce/events",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared event contracts and RabbitMQ infrastructure for ecommerce microservices",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.9",
+    "@ecommerce/config": "workspace:*",
+    "@ecommerce/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.7",
+    "typescript": "^5.8.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@ecommerce/database",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared database infrastructure for ecommerce microservices",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.13.0",
+    "mongoose": "^8.18.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.13.0",
+    "typescript": "^5.8.0"
+  }
+}
