@@ -1,17 +1,22 @@
 {
-  "name": "event-driven-commerce-platform",
+  "name": "ecommerce-platform",
   "version": "1.0.0",
   "private": true,
   "description": "Event driven microservices ecommerce platform",
+  "packageManager": "pnpm@10.15.0",
   "scripts": {
-    "dev": "pnpm --parallel --filter './services/*' dev",
+    "dev": "pnpm --parallel --filter './apps/*' dev",
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
     "format": "prettier --write .",
-    "docker:start": "docker compose up -d",
-    "docker:stop": "docker compose down",
-    "docker:logs": "docker compose logs -f"
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down",
+    "infra:logs": "docker compose logs -f",
+    "infra:restart": "docker compose restart",
+    "infra:ps": "docker compose ps",
+    "infra:check": "./scripts/check-infrastructure.sh",
+    "clean": "pnpm -r exec rm -rf dist"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",

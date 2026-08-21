@@ -1,5 +1,5 @@
 packages:
-  - 'services/*'
+  - 'apps/*'
   - 'packages/*'
 allowBuilds:
   '@prisma/client': false
