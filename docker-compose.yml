@@ -5,6 +5,7 @@ services:
   # ========================================
 
   postgres:
+
     image: postgres:17-alpine
 
     container_name: ecommerce-postgres
@@ -22,7 +23,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+    networks:
+      - infra-network
+
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+
     healthcheck:
+
       test:
         [
           "CMD-SHELL",
@@ -32,6 +43,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+      start_period: 10s
 
 
   # ========================================
@@ -39,6 +51,7 @@ services:
   # ========================================
 
   mongodb:
+
     image: mongo:8
 
     container_name: ecommerce-mongodb
@@ -55,7 +68,17 @@ services:
     volumes:
       - mongodb_data:/data/db
 
+    networks:
+      - infra-network
+
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+
     healthcheck:
+
       test:
         [
           "CMD-SHELL",
@@ -65,6 +88,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+      start_period: 10s
 
 
   # ========================================
@@ -72,6 +96,7 @@ services:
   # ========================================
 
   redis:
+
     image: redis:8-alpine
 
     container_name: ecommerce-redis
@@ -82,7 +107,9 @@ services:
       [
         "redis-server",
         "--requirepass",
-        "${REDIS_PASSWORD}"
+        "${REDIS_PASSWORD}",
+        "--appendonly",
+        "yes"
       ]
 
     ports:
@@ -91,7 +118,17 @@ services:
     volumes:
       - redis_data:/data
 
+    networks:
+      - infra-network
+
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+
     healthcheck:
+
       test:
         [
           "CMD",
@@ -104,6 +141,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+      start_period: 5s
 
 
   # ========================================
@@ -111,6 +149,7 @@ services:
   # ========================================
 
   rabbitmq:
+
     image: rabbitmq:4-management
 
     container_name: ecommerce-rabbitmq
@@ -128,7 +167,17 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 
+    networks:
+      - infra-network
+
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+
     healthcheck:
+
       test:
         [
           "CMD",
@@ -140,18 +189,38 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+      start_period: 10s
 
 
 # ==========================================
-# Persistent Volumes
+# Networks
+# ==========================================
+
+networks:
+
+  app-network:
+    name: ecommerce-app-network
+    driver: bridge
+
+  infra-network:
+    name: ecommerce-infra-network
+    driver: bridge
+
+
+# ==========================================
+# Volumes
 # ==========================================
 
 volumes:
 
   postgres_data:
+    name: ecommerce-postgres-data
 
   mongodb_data:
+    name: ecommerce-mongodb-data
 
   redis_data:
+    name: ecommerce-redis-data
 
   rabbitmq_data:
+    name: ecommerce-rabbitmq-data
