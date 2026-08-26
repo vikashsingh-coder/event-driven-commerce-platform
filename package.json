@@ -16,7 +16,11 @@
     "infra:restart": "docker compose restart",
     "infra:ps": "docker compose ps",
     "infra:check": "./scripts/check-infrastructure.sh",
-    "clean": "pnpm -r exec rm -rf dist"
+    "clean": "pnpm -r exec rm -rf dist",
+    "db:reset": "docker compose down -v && docker compose up -d",
+    "db:logs": "docker compose logs -f postgres",
+    "db:psql": "docker exec -it ecommerce-postgres psql -U ecommerce -d ecommerce",
+    "db:list": "docker exec ecommerce-postgres psql -U ecommerce -d postgres -c '\\l'"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
