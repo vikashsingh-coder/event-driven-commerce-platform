@@ -68,6 +68,7 @@ services:
 
     volumes:
       - mongodb_data:/data/db
+      - ./infrastructure/mongodb/init:/docker-entrypoint-initdb.d:ro
 
     networks:
       - infra-network

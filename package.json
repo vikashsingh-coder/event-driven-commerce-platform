@@ -20,7 +20,10 @@
     "db:reset": "docker compose down -v && docker compose up -d",
     "db:logs": "docker compose logs -f postgres",
     "db:psql": "docker exec -it ecommerce-postgres psql -U ecommerce -d ecommerce",
-    "db:list": "docker exec ecommerce-postgres psql -U ecommerce -d postgres -c '\\l'"
+    "db:list": "docker exec ecommerce-postgres psql -U ecommerce -d postgres -c '\\l'",
+    "mongo:logs": "docker compose logs -f mongodb",
+    "mongo:shell": "docker exec -it ecommerce-mongodb mongosh  -u ecommerce  -p ecommerce_dev_password --authenticationDatabase admin",
+    "mongo:databases": "docker exec ecommerce-mongodb mongosh -u ecommerce -p ecommerce_dev_password --authenticationDatabase admin --eval \"show dbs\""
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
@@ -28,5 +31,8 @@
     "prettier": "^3.0.0",
     "tsx": "^4.23.10",
     "typescript": "^5.8.0"
+  },
+  "dependencies": {
+    "mongoose": "^8.24.2"
   }
 }
