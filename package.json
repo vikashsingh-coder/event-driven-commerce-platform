@@ -33,6 +33,7 @@
     "typescript": "^5.8.0"
   },
   "dependencies": {
+    "ioredis": "^6.0.0",
     "mongoose": "^8.24.2"
   }
 }
